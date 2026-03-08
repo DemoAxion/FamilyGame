@@ -1,0 +1,152 @@
+comm<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Arcade - Tetris</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #111;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            user-select: none;
+        }
+
+        .game-container {
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+        }
+
+        canvas {
+            border: 3px solid #444;
+            background: #000;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            min-width: 140px;
+        }
+
+        .panel {
+            background: #1a1a1a;
+            border: 2px solid #444;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .panel h3 {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+        }
+
+        .panel .value {
+            font-size: 22px;
+            color: #0ff;
+        }
+
+        #next-canvas {
+            border: 2px solid #444;
+            background: #000;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .controls {
+            font-size: 11px;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .controls span {
+            color: #aaa;
+        }
+
+        #game-over-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 10;
+        }
+
+        #game-over-overlay.active {
+            display: flex;
+        }
+
+        #game-over-overlay h1 {
+            font-size: 48px;
+            color: #f44;
+            text-shadow: 0 0 20px #f44;
+        }
+
+        #game-over-overlay button {
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            padding: 10px 30px;
+            background: none;
+            border: 2px solid #0ff;
+            color: #0ff;
+            cursor: pointer;
+            letter-spacing: 2px;
+        }
+
+        #game-over-overlay button:hover {
+            background: #0ff;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <canvas id="board" width="300" height="600"></canvas>
+        <div class="sidebar">
+            <div class="panel">
+                <h3>SCORE</h3>
+                <div class="value" id="score">0</div>
+            </div>
+            <div class="panel">
+                <h3>LEVEL</h3>
+                <div class="value" id="level">1</div>
+            </div>
+            <div class="panel">
+                <h3>LINES</h3>
+                <div class="value" id="lines">0</div>
+            </div>
+            <div class="panel">
+                <h3>NEXT</h3>
+                <canvas id="next-canvas" width="120" height="120"></canvas>
+            </div>
+            <div class="controls">
+                <span>&larr; &rarr;</span> Move<br>
+                <span>&uarr;</span> Rotate<br>
+                <span>&darr;</span> Soft Drop<br>
+                <span>Space</span> Hard Drop<br>
+                <span>P</span> Pause
+            </div>
+        </div>
+    </div>
+
+    <div id="game-over-overlay">
+        <h1>GAME OVER</h1>
+        <div style="font-size: 24px; color: #0ff;" id="final-score"></div>
+        <button id="restart-btn">PLAY AGAIN</button>
+    </div>
+
+    <script src="tetris.js"></script>
+</body>
+</html>
